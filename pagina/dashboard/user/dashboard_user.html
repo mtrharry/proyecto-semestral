@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Maple</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous">
+    <link rel="stylesheet" href="dashboard_user.css">
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <header class="encabezado" >
+    <a href="index.html.lnk" class="logos">       
+    <img class="logo" src="logo.png" alt="logo" height=160px  width=160px>    
+    </a>
+    <nav>
+      <a href="catalogo.html.lnk" class="nav-link">Producto</a>
+      <a href="blog.html.lnk" class="nav-link">Blog</a>
+      <a href="contacto.html.lnk" class="nav-link">Contacto</a>
+      <a href="login_registro.html.lnk" class="nav-link">ingresar</a>
+      <div class="search-bar">
+        <input class="form-control mr-sm-2" type="text" placeholder="Buscar">
+        <button class="btn btn-success" type="submit">Buscar</button>
+        <a href="">
+          <img class="imgca" src="carrito.png" alt="carrito" height="50px" >
+        </a>               
+      </div>
+    </nav>  
+</header>
+
+  <!-- User Dashboard -->
+  <section class="py-5">
+    <div class="container">
+      <h2>Welcome to your dashboard, [Username]</h2>
+      <hr>
+      <h3>Your Orders</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Order Date</th>
+            <th scope="col">Order Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Product 1</td>
+            <td>2023-03-31</td>
+            <td>Processing</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Product 2</td>
+            <td>2023-03-30</td>
+            <td>Shipped</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Product 3</td>
+            <td>2023-03-29</td>
+            <td>Delivered</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2023 Maple</p>
+  </footer>
+  </body>
+  </html>
+  </body>
+  </html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Maple</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="catalogo.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+ 
+</head>
+<body>
+
+<!-- Navigation bar -->
+<header class="encabezado" >
+          
+  <div class="titulo" >
+    <a href="/index/index.html">Maple</a>
+  </div>
+  
+  <!-- lista -->
+  
+  <ul id="navbarNav" class="collapse">
+      <li><a href="../catalogo/catalogo.html">Productos</a></li>
+      <li><a href="../blog/blog.html">Blog</a></li>
+      <li><a href="../contacto/contacto.html">Contacto</a></li>
+      <li><a href="../login_registro/login_registro.html">Ingresar</a></li>
+
+
+  
+  <!-- buscador -->
+  <form class="form-inline my-2 my-lg-0 mr-3">
+      <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+  </form>
+   <!-- carrito -->
+  <img class="carrito" src="carrito.png" alt="" height=47px"></div>
+</ul>  
+ 
+  <div class="boton">
+      <button  class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"  >
+          <img src="iconmenu.png"  width="100%"> 
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+  </header>
+<br>
+<br>
+
+<!-- Carousel -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel" style="max-width: 1400px; margin: auto;">
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://via.placeholder.com/1200x400?text=Carousel+1" alt="Carousel 1">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/1200x400?text=Carousel+2" alt="Carousel 2">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/1200x400?text=Carousel+3" alt="Carousel 3">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#myCarousel" data-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </a>
+  </div>
+  
+  <!-- Products -->
+  <div class="container">
+    <!-- Filters -->
+    <form class="filters">
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="category-select">Categoria:</label>
+          <select class="form-control" id="category-select">
+            <option value="">todo</option>
+            <option value="tierra">tierra</option>
+            <option value="plantas">plantas</option>
+            <option value="macetas">macetas</option>
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="price-select">Precio:</label>
+          <select class="form-control" id="price-select">
+            <option value="">All</option>
+            <option value="under10">$5.000 y menos</option>
+            <option value="10to50">$10.000 a $15.000</option>
+            <option value="over50">$15.000 y mas</option>
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="sort-select">Ordenar por:</label>
+          <select class="form-control" id="sort-select">
+            <option value="price-low-to-high">Precio: bajo a alto</option>
+            <option value="price-high-to-low">Precio: alto a bajo</option>
+            <option value="name-a-to-z">Nombre: A - Z</option>
+            <option value="name-z-to-a">Nombre: Z - A</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  
+    <!-- Product Catalog -->
+    <div class="product-row" id="product-catalog">
+      <div class="product-col tierra1">
+        <div class="card">
+          <img src="https://via.placeholder.com/200x200?text=tierra+1" alt="Tierra 1">
+          <div class="card-body">
+            <h5 class="card-title">Tierra Item 1</h5>
+            <p class="card-text">$10.000</p>
+            <a href="#" class="btn btn-primary">Comprar</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-col planta1">
+        <div class="card">
+          <img src="https://via.placeholder.com/200x200?text=Planta+1" alt="Planta 1">
+          <div class="card-body">
+            <h5 class="card-title">Planta Item 1</h5>
+            <p class="card-text">$5.000</p>
+            <a href="#" class="btn btn-primary">Comprar</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-col maceta1">
+        <div class="card">
+          <img src="https://via.placeholder.com/200x200?text=Maceta+1" alt="Maceta 1">
+          <div class="card-body">
+            <h5 class="card-title">Maceta Item 1</h5>
+            <p class="card-text">$2.000</p>
+            <a href="#" class="btn btn-primary">Comprar</a>
+            </div>
+            </div>
+            </div>
+            <div class="product-col tierra2">
+            <div class="card">
+            <img src="https://via.placeholder.com/200x200?text=Tierra+2" alt="Maceta 2">
+            <div class="card-body">
+            <h5 class="card-title">Maceta Item 2</h5>
+            <p class="card-text">$5.000</p>
+            <a href="#" class="btn btn-primary">Comprar</a>
+            </div>
+            </div>
+            </div>
+            <div class="product-col planta2">
+            <div class="card">
+            <img src="https://via.placeholder.com/200x200?text=Planta+2" alt="Planta 2">
+            <div class="card-body">
+            <h5 class="card-title">Planta Item 2</h5>
+            <p class="card-text">$15.000</p>
+            <a href="#" class="btn btn-primary">Comprar</a>
+            </div>
+            </div>
+            </div>
+            <div class="product-col maceta2">
+            <div class="card">
+            <img src="https://via.placeholder.com/200x200?text=Maceta+2" alt="Maceta 2">
+            <div class="card-body">
+            <h5 class="card-title">Maceta 2</h5>
+            <p class="card-text">$12.000</p>
+            <a href="#" class="btn btn-primary">Comprar</a>
+            </div>
+            </div>
+            </div>
+            <div class="product-col planta3">
+            <div class="card">
+            <img src="https://via.placeholder.com/200x200?text=Planta+3" alt="Planta 3">
+            <div class="card-body">
+            <h5 class="card-title">Planta Item 3</h5>
+            <p class="card-text">$18.000</p>
+            <a href="#" class="btn btn-primary">Comprar</a>
+            </div>
+            </div>
+            </div>
+            <div class="product-col maceta3">
+            <div class="card">
+            <img src="https://via.placeholder.com/200x200?text=Maceta+3" alt="Maceta 3">
+            <div class="card-body">
+            <h5 class="card-title">Maceta Item 3</h5>
+            <p class="card-text">$8.000</p>
+            <a href="#" class="btn btn-primary">Comprar</a>
+            </div>
+            </div>
+            </div>
+            
+              </div>
+            </div>
+            <!-- Footer -->
+            <footer>
+                <p>&copy; 2023 Maple</p>
+              </footer>
+              </body>
+              </html>
+              </body>
+              </html>
