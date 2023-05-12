@@ -6,7 +6,7 @@ function login(){
     var password = document.getElementById("password").value;
     if (username === "harry" && password === "1234") {
        
-        window.location="../index.html"
+        window.location="../index/index.html"
     }  else {
         // login failed
         document.getElementById("error-message").innerHTML = "Usuario no registrado.";

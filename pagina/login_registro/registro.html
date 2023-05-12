@@ -18,7 +18,7 @@
 	<header>
         
 		<div class="titulo" >
-			<a href="/index/index.html">Maple</a>
+			<a href="../index/index.html">Maple</a>
 		</div>
     <ul id="navbarNav" class="collapse">
       <li><a href="../catalogo/catalogo.html">Productos</a></li>
@@ -47,8 +47,8 @@
 	
 	</header>
 
-    <div class="contenedor">
-        <form id="login-form">
+    <div class="contenedor" >
+        <form id="login-form" method="post">
 			<div class="cs">
             <label for="name">Name:</label><br>
             <input type="text" id="name" placeholder="Cree un usuario" required><br>
@@ -63,6 +63,9 @@
 			<label for="confirm-password">Confirm Password:</label><br>
 			<input type="password" id="confirm-password" placeholder="Reingresa la contraseña"><br><br>
       <p id="error-message" style="color: red;"></p>
+      
+
+
             
             <input type="submit" onclick="return validateForm()" value="Enviar">
 

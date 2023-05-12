@@ -1,4 +1,6 @@
+
 function validateForm() {
+    
     var password = document.getElementById("password").value;
     var confirmPassword = document.getElementById("confirm-password").value;
     if (password != confirmPassword) {
