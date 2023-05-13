@@ -1,0 +1,250 @@
+*{
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+
+}
+header{ 
+    display: flex;
+    background-color: #343a40;
+}
+
+header{ 
+    display: flex;
+    width: 100%;
+    background-color: #343a40;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    max-width: auto;
+    margin: auto;
+}
+
+.titulo{
+    font-family: Arial, sans-serif;
+	font-size: 1.4rem;
+	font-weight: bold;
+	text-transform: uppercase;
+    display: block;
+    margin-top: 0.4em;
+    margin-left: 0.7em;
+    color: white;   
+}
+
+.contenedor2{
+    max-width: 1400px;
+    margin: auto;
+}
+
+.carrito{
+    position: absolute;
+    right: 10px;
+    top: 100px;
+    left: 400px;
+}
+.navbar-toggler{
+    float: left;
+    padding: 10px;
+    margin: auto;
+    position: relative;
+    max-width: 60px;
+}
+
+#navbarNav {
+    position: absolute;
+    background-color: white;
+    z-index: 1;
+    background-color: #343a40;
+    width: 100%;
+    margin-top: 2.6em;
+}
+
+#navbarNav li {
+    margin-right: 15px;
+}
+
+.boton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 1px 1px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: auto;
+    font-size: 16px;
+    border-radius: 12px;
+    width: 60px;
+    height: 60px;
+}
+#contenedor{
+    display: flex;
+    max-width: 1200px;
+    margin: auto;
+
+}
+#temperatura-valor{
+    position: relative;
+
+}
+#icono-animado{
+    position: relative;
+    margin: auto;
+    left: -1cm;
+
+}
+ #ubicacion{
+    position: absolute;
+    margin: auto;
+    left: 12em;
+
+} 
+#icono-animado{
+    margin-top: -3em;
+
+}
+#caja3{
+    position: absolute;
+    flex-direction: row;
+    margin-top: 3em;
+    margin-left: 26em;
+    display: none;
+
+}
+
+
+
+@media (min-width: 1000px) {
+*{
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+
+}
+#navbarNav {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    background-color: #343a40 ;
+    width: auto;
+    margin-top: auto;
+    
+}
+.boton{
+color: aqua;
+}
+
+.navbar-toggler {
+    display: none ;
+}
+header{ 
+    display: flex;
+    width: 100%;
+    background-color: #343a40;
+    justify-content: center;    
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+.titulo{
+    font-family: Arial, sans-serif;
+	font-size: 1.4rem;
+	font-weight: bold;
+	text-transform: uppercase;
+    display: block;
+    margin-top: 0.7em;
+    margin-left: 0.7em;
+    color: white;  
+}
+
+ul{
+    position: relative;
+    display: flex;
+    list-style-type: none;
+    margin: auto;
+    text-decoration: none;
+    margin-left: 1em;
+    margin: auto;
+}
+
+li{
+    padding: 5px;
+    margin-top: 10px;
+}
+
+.carrito{
+    position: relative;
+    margin-top: 1em;
+    top: 0;
+    left: 0;
+    position: relative;
+    right: 0;
+    text-align: center;
+    text-decoration: none;
+    text-align: center;
+}
+
+.boton{
+    display: none;
+
+}
+
+#contenedor{
+    
+    max-width: auto;
+    margin: auto;
+
+}
+#temperatura-valor{
+    position: relative;
+
+}
+#ubicacion{
+    position: relative;
+    max-width: 1200px;
+    margin: auto;
+    margin-left: -7em;
+    
+    
+    
+
+}
+#icono-animado{
+    top: -4em;
+
+        position: relative;
+        margin: auto;
+        left: 0cm;
+    
+    
+
+}
+#ubicacion{
+    position: relative;
+    margin: auto;
+    max-width: 490px;
+    left: 4em;
+
+}
+#caja3{
+    position: absolute;
+    flex-direction: row;
+    margin-top: 3em;
+    margin-left: 27em;
+    display: block;
+}
+
+}
