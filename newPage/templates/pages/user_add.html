@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript%}
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto p-5 text-center">
+                <h1>Agregar Usuario</h1><br>
+                <form action="userAdd" method="POST">
+                    {% csrf_token %}
+                    <div>
+                        <label for="rut" class="form-label">Rut</label>
+                        <input type="text" name="rut" id="rut" class="form-control">
+                    </div>
+                    <div>
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" name="nombre" id="nombre" class="form-control">
+                    </div>
+                    <div>
+                        <label for="appPaterno" class="form-label">Apellido Paterno</label>
+                        <input type="text" name="appPaterno" id="appPaterno" class="form-control">
+                    </div>
+                    <div>
+                        <label for="appMaterno" class="form-label">Apellido Materno</label>
+                        <input type="text" name="appMaterno" id="appMaterno" class="form-control">
+                    </div>
+                    <div>
+                        <label for="fecha" class="form-label">Fecha de Nacimiento</label>
+                        <input type="date" name="fecha" id="fecha" class="form-control">
+                    </div>
+                    <div>
+                        <label for="tipoUsuario" class="form-label">Tipo Usuario</label>
+                        <select name="tipoUsuario" id="tipoUsuario" class="form-control">
+                            {% for tipoUser in tipo %}
+                            <option value="{{tipoUser.idTipoUsuario}}">{{tipoUser.tipoUsuario}}</option>
+                            {% endfor%}
+                        </select>
+                    </div>
+                    <div>
+                        <label for="telefono" class="form-label">Telefono</label>
+                        <input type="text" name="telefono" id="telefono" class="form-control">
+                    </div>
+                    <div>
+                        <label for="correo" class="form-label">Correo</label>
+                        <input type="email" name="correo" id="correo" class="form-control">
+                    </div>
+                    <div>
+                        <label for="direccion" class="form-label">Direccion</label>
+                        <input type="text" name="direccion" id="direccion" class="form-control">
+                    </div><br><br>
+                    <input type="submit" name="opcion" value="Agregar" class="btn btn-success">
+                    <a href="{% url 'crud' %}"><button type="button" class="btn btn-secondary">Volver</button></a>
+                </form><br><br>
+                <div id="idMensajes">
+                    {% if mensaje%}
+                    {{mensaje}}
+                    {% endif%}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
