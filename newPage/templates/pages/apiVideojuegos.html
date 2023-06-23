@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load bootstrap5 %}
+    {% load static %}
+    {% bootstrap_css%}
+    {% bootstrap_javascript%}
+    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
+    <script src='{% static 'js/functions.js' %}'></script>
+</head>
+
+<body>
+
+
+    <div class="container">
+        <div id="carouselExample" class="carousel slide">
+            <div class="carousel-inner" id="carusel">
+                <div class="carousel-item active">
+                    <img src="{% static 'img/wow.jpg' %}" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="row row-cols-2 row-cols-md-3 g-3 mt-3" id="catalogo">
+
+        </div>
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+    //13477c9d3719415692a314047a845263 Api Key
+    //https://api.rawg.io/api/games?key=13477c9d3719415692a314047a845263
+
+    $(document).ready(function () {
+        $.get("https://api.rawg.io/api/games?key=13477c9d3719415692a314047a845263&genres=action&platform=pc&page=3",
+            function (data) {
+                $.each(data.results, function (i, item) {
+                    console.log(item.name)
+                    $("#catalogo").append('<div class="col">' +
+                        '<div class="card w-75">' +
+                        '<img src="' + item.background_image +
+                        '" class="card-img-top" alt="Cargando...">' +
+                        '<div class="card-body">' +
+                        '<h5 class="card-title">' + item.name + '</h5><p class="card-text">' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>');
+
+
+                })
+            })
+        $.get("  ", function (data) {
+            $.each(data.short_screenshots, function (i, item) {
+                console.log(data)
+                $("#carusel").append('<div class="carousel-item">' +
+                    '<img src="' + item.image + '" class="d-block w-100" alt="...">' +
+                    '</div>')
+            })
+        })
+    })
+</script>
+
+</html>

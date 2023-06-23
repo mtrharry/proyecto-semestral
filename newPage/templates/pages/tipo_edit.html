@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static%}
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript%}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto p-5 text-center">
+                <h1>Agregar Tipo Usuario</h1><br>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" name="opcion" value="Modificar" class="btn btn-success">
+                    <a href="{% url 'crudTipo' %}"><button type="button" class="btn btn-secondary">Volver</button></a>
+                </form><br><br>
+                <div id="idMensajes">
+                    {% if mensaje%}
+                    {{mensaje}}
+                    {% endif%}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript%}
+    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
+    <script src="{% static 'js/function.js'%}"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 p-5 mt-3 mx-auto table-responsive">
+                <h1>LIstado Tipos de Usuario</h1><br>
+                <a href="{% url 'crud' %}">
+                    <button type="button" class="btn btn-primary">Volver a Usuario</button>
+                </a><a href="{% url 'tipoAdd' %}">
+                    <button type="button" class="btn btn-primary">Agregar Tipo</button>
+                </a>
+                <div id="idMensajes">
+                    {% if mensaje %}
+                    {{mensaje}}
+                    {% endif%}
+                </div>
+                <table class="table table-dark table-table-striped">
+                    <thead>
+                        <th>ID Tipo</th>
+                        <th>Tipo de Usuario</th>
+                        <th>Modificar</th>
+                        <th>Eliminar</th>
+                    </thead>
+                    <tbody>
+                        {% for x in tipo %}
+                        <tr>
+                            <td>{{x.idTipoUsuario}}</td>
+                            <td>{{x.tipoUsuario}}</td>
+                            <td><a href="{% url 'tipoEdit' pk=x.idTipoUsuario%}">Modificar</a></td>
+                            <td><a href="{% url 'tipoDel' pk=x.idTipoUsuario %}">Eliminar</a></td>
+                        </tr>
+                        {% endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

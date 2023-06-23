@@ -4,26 +4,16 @@
     text-decoration: none;
     list-style: none;
     box-sizing: border-box;
-
 }
-header{ 
+header{
+    width: 100%; 
     display: flex;
-
     background-color: #343a40!important;
 }
-
-header{ 
-    display: flex;
-    width: 100%;
-    background-color: #343a40;
-}
-
 a{
     color: white;
     text-decoration: none;
-
 }
-
 footer {
     background-color: #333;
     position: fixed;
@@ -49,7 +39,6 @@ footer {
     margin-top: 0.4em;
     margin-left: 0.7em;
     color: white;
-    
 }
 
 .carrito{
@@ -65,10 +54,7 @@ footer {
     margin: auto;
     position: relative;
     max-width: 60px;
-
-
 }
-
 #navbarNav {
     position: absolute;
     background-color: white;
@@ -76,31 +62,14 @@ footer {
     background-color: #343a40;
     width: 100%;
     margin-top: 2.6em;
-    
 }
 
-.boton {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 1px 1px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    margin-left: auto;
-    font-size: 16px;
-    border-radius: 12px;
-    width: 60px;
-    height: 60px;
-}
-
-
+  
 @media (min-width: 1000px) {
 *{
     text-decoration: none;
     list-style: none;
     box-sizing: border-box;
-
 }
 #navbarNav {
     display: flex;
@@ -109,16 +78,9 @@ footer {
     background-color: #343a40 ;
     width: auto;
     margin-top: auto;
-    
-}
-.boton{
-color: aqua;
-
 }
 body {
     background-color: #f8f9fa;}
-
-
 .navbar-toggler {
     display: none ;
 }
@@ -127,13 +89,10 @@ header{
     width: 100%;
     background-color: #343a40;
     justify-content: center;
-    
 }
-
 a{
     color: white;
     text-decoration: none;
-
 }
 .titulo{
     font-family: Arial, sans-serif;
@@ -144,10 +103,7 @@ a{
     margin-top: 0.7em;
     margin-left: 0.7em;
     color: white;
-
-    
 }
-
 ul{
     position: relative;
     display: flex;
@@ -156,16 +112,11 @@ ul{
     text-decoration: none;
     margin-left: 1em;
     margin: auto;
-    
 }
 li{
     padding: 5px;
     margin-top: 10px;
-    
-    
-
 }
-
 .carrito{
     position: relative;
     margin-top: 1em;
@@ -176,50 +127,17 @@ li{
     text-align: center;
     text-decoration: none;
     text-align: center;
-    
-    
-
 }
-
-
-.boton{
-    display: none;
-
-
-
-}}
-/* fin de heather */
-
-
+}
 form {
     font-size: 1em;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
     margin-top: 3em;
-    
 }
-
-  
-input[type="text"], input[type="password"], input[type="email"] {
-	padding: 10px;
-	margin-bottom: 10px;
-	border-radius: 5px;
-		
-  }
-
-  input[type="submit"] {
-	padding: 10px 20px;
-	border-radius: 5px;
-	border: none;
-	background-color: lightblue;
-  }
-
-
 body {
     font-family: Arial, sans-serif;
-    
-
 	background-size: cover;
   }
 
