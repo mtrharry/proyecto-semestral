@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Registration Form</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript%}
     <!-- Bootstrap CSS -->
     <link
       rel="stylesheet" 
@@ -48,31 +51,80 @@
 	
 	</header>
 
-    <div class="contenedor" >
-        <form id="login-form" method="post">
-			<div class="cs">
-            <label for="name">Name:</label><br>
-            <input type="text" id="name" placeholder="Cree un usuario" required><br>
-            
-            <label for="email">Email:</label><br>
-            <input type="email" id="email" name="email" placeholder="Ingrese su email" required><br>
-            
-            <label for="password">Password:</label><br>
-            <input type="password" id="password" name="password" placeholder="Crea una contraseña" required
-					minlength="8"><br>
-			
-			<label for="confirm-password">Confirm Password:</label><br>
-			<input type="password" id="confirm-password" placeholder="Reingresa la contraseña"><br><br>
-      <p id="error-message" style="color: red;"></p>
-      
-
-
-            
-            <input type="submit" onclick="return validateForm()" value="Enviar">
-
-			</div>
-        </form> 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto p-5 text-center">
+                <h1>Agregar Usuario</h1>
+                <form action="{% url 'userAdd' %}" method="POST">
+                    {% csrf_token %}
+    
+                    <!-- Display success message -->
+                    {% if mensaje %}
+                        <div class="alert alert-success" role="alert">
+                            {{ mensaje }}
+                        </div>
+                    {% endif %}
+    
+                    <!-- Display form errors -->
+                    {% if form.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            <ul class="mb-0">
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <li>{{ field.label }}: {{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+    
+                    <div>
+                        <label for="rut" class="form-label">Rut</label>
+                        <input type="text" name="rut" id="rut" class="form-control">
+                    </div>
+                    <div>
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" name="nombre" id="nombre" class="form-control">
+                    </div>
+                    <div>
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" name="password" id="password" class="form-control">
+                    </div>
+                    <div>
+                        <label for="appPaterno" class="form-label">Apellido Paterno</label>
+                        <input type="text" name="appPaterno" id="appPaterno" class="form-control">
+                    </div>
+                    <div>
+                        <label for="appMaterno" class="form-label">Apellido Materno</label>
+                        <input type="text" name="appMaterno" id="appMaterno" class="form-control">
+                    </div>
+                    <div>
+                        <label for="fecha" class="form-label">Fecha de Nacimiento</label>
+                        <input type="date" name="fecha" id="fecha" class="form-control" required>
+                    </div>
+                    <div>
+                        <label for="telefono" class="form-label">Telefono</label>
+                        <input type="text" name="telefono" id="telefono" class="form-control">
+                    </div>
+                    <div>
+                        <label for="correo" class="form-label">Correo</label>
+                        <input type="email" name="correo" id="correo" class="form-control">
+                    </div>
+                    <div>
+                        <label for="direccion" class="form-label">Direccion</label>
+                        <input type="text" name="direccion" id="direccion" class="form-control">
+                    </div>
+                    <br>
+                <input type="submit" name="opcion" value="Agregar" class="btn btn-success">
+            </form>
+            <br>
+            <br>
+        </div>
     </div>
+</div>
+    
+    
+
 
     <footer>
       <p>&copy; 2023 Maple</p>
