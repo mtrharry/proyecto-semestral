@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript%}
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 mx-auto p-5 text-center">
+                <h1>Agregar Usuario</h1><br>
+                <form action="userAdd" method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p}}
+
+                    <br><br>
+                    <input type="submit" name="opcion" value="Agregar" class="btn btn-success">
+                    <a href="{% url 'crud' %}"><button type="button" class="btn btn-secondary">Volver</button></a>
+                </form><br><br>
+                <div id="idMensajes">
+                    {% if mensaje%}
+                    {{mensaje}}
+                    {% endif%}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
