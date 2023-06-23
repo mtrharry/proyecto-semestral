@@ -7,32 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     {% load bootstrap5 %}
-    {% load static %}
     {% bootstrap_css %}
     {% bootstrap_javascript%}
-    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
-    <script src="{% static 'js/function.js'%}"></script>
+
 </head>
 
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-lg-10 p-5 mt-3 mx-auto text-center table-responsive">
-
+            <div class="col p-5">
                 <h1>Lista de Usuarios</h1><br>
-                {% if request.session.nombreUsuario%}
-                <div class='h2 fw-bold mb-3'>
-                    Bienvenido {{request.session.nombreUsuario}} <br>
-                </div>
-                {% endif%}
+
                 <a href="{% url 'userAdd' %}">
                     <button type="button" class="btn btn-primary">Agregar</button>
-                </a>
-                <a href="{% url 'crudTipo' %}">
-                    <button type="button" class="btn btn-primary">Ver Tipos de Usuario</button>
-                </a>
-                <a href="{% url 'logout' %}">
-                    <button type="button" class="btn btn-danger">Desconectar</button>
                 </a>
                 <div id="idMensajes">
                     {% if mensaje %}
@@ -40,7 +27,7 @@
                     {% endif%}
                 </div>
 
-                <table class="table table-dark table-striped mt-3">
+                <table class="table table-dark table-striped">
                     {% if usuario %}
                     <thead>
                         <th>Rut</th>

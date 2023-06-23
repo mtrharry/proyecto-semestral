@@ -1,15 +1,47 @@
 from django.shortcuts import render
+from django import forms
 from .models import Usuario, tipoUsuario
-from .forms import UsuarioForm, tipoForm
-
 # Create your views here.
 
+def blog(request):
+    usuario = Usuario.objects.all()
+    context = {"user": usuario}
+    return render(request, "pages/blog.html", context)
+
+def catalogo(request):
+    usuario = Usuario.objects.all()
+    context = {"user": usuario}
+    return render(request, "pages/catalogo.html", context)
+
+def contacto(request):
+    usuario = Usuario.objects.all()
+    context = {"user": usuario}
+    return render(request, "pages/contacto.html", context)
+
+def login_registro(request):
+    usuario = Usuario.objects.all()
+    context = {"user": usuario}
+    return render(request, "pages/login_registro.html", context)
+
+def nosotros(request):
+    usuario = Usuario.objects.all()
+    context = {"user": usuario}
+    return render(request, "pages/nosotros.html", context)
+
+def registro(request):
+    usuario = Usuario.objects.all()
+    context = {"user": usuario}
+    return render(request, "pages/registro.html", context)
+
+def suscripciones(request):
+    usuario = Usuario.objects.all()
+    context = {"user": usuario}
+    return render(request, "pages/suscripciones.html", context)
 
 def index(request):
     usuario = Usuario.objects.all()
     context = {"user": usuario}
     return render(request, "pages/index.html", context)
-
 
 def crud(request):
     usuario = Usuario.objects.all()
@@ -17,36 +49,71 @@ def crud(request):
     return render(request, "pages/user_list.html", context)
 
 
-def userAdd(request):
-    if request.method != "POST":
-        tipo = tipoUsuario.objects.all()
-        context = {"tipo": tipo}
-        return render(request, "pages/user_add.html", context)
-    else:
-        rut = request.POST["rut"]
-        nombre = request.POST["nombre"]
-        appPaterno = request.POST["appPaterno"]
-        appMaterno = request.POST["appMaterno"]
-        fecha = request.POST["fecha"]
-        tipo = request.POST["tipoUsuario"]
-        correo = request.POST["correo"]
-        telefono = request.POST["telefono"]
+class UserAddForm(forms.Form):
+    rut = forms.CharField(max_length=10)
+    nombre = forms.CharField(max_length=50)
+    appPaterno = forms.CharField(max_length=30)
+    appMaterno = forms.CharField(max_length=30)
+    fecha = forms.DateField()
+    correo = forms.EmailField()
+    telefono = forms.CharField(max_length=10)
 
-        objTipo = tipoUsuario.objects.get(idTipoUsuario=tipo)
-        objUsuario = Usuario.objects.create(
-            rut=rut,
-            nombre=nombre,
-            appPaterno=appPaterno,
-            appMaterno=appMaterno,
-            fechaNacimiento=fecha,
-            tipoUsuario=objTipo,
-            correo=correo,
-            telefono=telefono,
-            activo=1,
-        )
-        objUsuario.save()
-        context = {"mensaje": "OK Registrado Correctamente"}
-        return render(request, "pages/user_add.html", context)
+def userAdd(request):
+    if request.method == "POST":
+        form = UserAddForm(request.POST)
+        if form.is_valid():
+            rut = form.cleaned_data["rut"]
+            nombre = form.cleaned_data["nombre"]
+            appPaterno = form.cleaned_data["appPaterno"]
+            appMaterno = form.cleaned_data["appMaterno"]
+            fecha = form.cleaned_data["fecha"]
+            correo = form.cleaned_data["correo"]
+            telefono = form.cleaned_data["telefono"]
+            password = request.POST["password"]
+            direccion = request.POST["direccion"]
+
+            # Check if rut, nombre, and correo already exist in the database
+            if Usuario.objects.filter(rut=rut).exists():
+                form.add_error("rut", "El rut ya está registrado.")
+            if Usuario.objects.filter(nombre=nombre).exists():
+                form.add_error("nombre", "El nombre ya está registrado.")
+            if Usuario.objects.filter(correo=correo).exists():
+                form.add_error("correo", "El correo ya está registrado.")
+
+            if not form.errors:
+                tipo_cliente, created = tipoUsuario.objects.get_or_create(tipoUsuario="cliente")
+
+                objUsuario = Usuario(
+                    rut=rut,
+                    nombre=nombre,
+                    appPaterno=appPaterno,
+                    appMaterno=appMaterno,
+                    fechaNacimiento=fecha,
+                    tipoUsuario=tipo_cliente,
+                    correo=correo,
+                    telefono=telefono,
+                    activo=1,
+                    password=password,
+                    direccion = direccion,
+                )
+                objUsuario.save()
+
+                context = {"mensaje": "Registrado Correctamente"}
+                return render(request, "pages/registro.html", context)
+        else:
+            print("Form errors:", form.errors)
+    else:
+        form = UserAddForm()
+
+    tipo = tipoUsuario.objects.all()
+    context = {"form": form, "tipo": tipo}
+    return render(request, "pages/registro.html", context)
+
+
+
+
+
+
 
 
 def userDel(request, pk):
@@ -108,92 +175,3 @@ def userUpdate(request):
         usuarios = Usuario.objects.all()
         context = {"usuario": usuarios}
         return render(request, "pages/user_list.html", context)
-
-
-def formAdd(request):
-    form = UsuarioForm()
-    context = {"form": form}
-    return render(request, "pages/formAdd.html", context)
-
-
-def juegos(request):
-    context = {}
-    return render(request, "pages/apiVideojuegos.html", context)
-
-
-def crudTipo(request):
-    tipos = tipoUsuario.objects.all()
-    context = {"tipo": tipos}
-    return render(request, "pages/tipo_list.html", context)
-
-
-def tipoAdd(request):
-    if request.method != "POST":
-        tipo = tipoForm()
-        context = {"tipo": tipo}
-        return render(request, "pages/tipo_add.html", context)
-    else:
-        form = tipoForm(request.POST)
-        if form.is_valid():
-            form.save()
-
-            form = tipoForm()
-
-            context = {"mensaje": "OK Agregado con exito", "tipo": form}
-            return render(request, "pages/tipo_add.html", context)
-
-
-def tipoDel(request, pk):
-    if pk != "":
-        tipo = tipoUsuario.objects.get(idTipoUsuario=pk)
-        tipo.delete()
-
-        tipos = tipoUsuario.objects.all()
-        context = {"mensaje": "OK Tipo Eliminado", "tipo": tipos}
-        return render(request, "pages/tipo_list.html", context)
-
-
-def tipoEdit(request, pk):
-    try:
-        tipo = tipoUsuario.objects.get(idTipoUsuario=pk)
-        context = {}
-        if request.method != "POST":
-            form = tipoForm(instance=tipo)
-            context = {"form": form}
-            return render(request, "pages/tipo_edit.html", context)
-        else:
-            form = tipoForm(request.POST, instance=tipo)
-            form.save()
-
-            context = {"mensaje": "OK Modificado con exito", "form": form}
-            return render(request, "pages/tipo_edit.html", context)
-    except:
-        tipos = tipoUsuario.objects.all()
-        context = {"mensaje": "Error, Tipo no encontrado...", "tipo": tipos}
-        return render(request, "pages/tipo_list.html", context)
-
-
-def login(request):
-    context = {}
-    if request.method != "POST":
-        return render(request, "pages/login.html", context)
-    else:
-        username = request.POST["username"]
-        password = request.POST["password"]
-        # print(f"Usuario: {username} \t Contraseña: {password}")
-        # Reemplazar 'jo.riquelmee' por dato de la BDD
-        # usuario = Usuario.objects.get(correo=username)
-        if username == "jo.riquelmee" and password == "pass1234":
-            request.session["nombreUsuario"] = username
-            usuarios = Usuario.objects.all()
-            context = {"usuario": usuarios}
-            return render(request, "pages/user_list.html", context)
-        else:
-            context = {"mensaje": "Usuario y/o Contraseña erronea"}
-            return render(request, "pages/login.html", context)
-
-
-def logout(request):
-    del request.session["nombreUsuario"]
-    context = {"mensaje": "Usuario Desconectado"}
-    return render(request, "pages/login.html", context)
