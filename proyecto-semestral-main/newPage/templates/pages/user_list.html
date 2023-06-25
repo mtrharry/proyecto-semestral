@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript%}
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col p-5">
+                <h1>Lista de Usuarios</h1><br>
+
+                <a href="{% url 'userAdd' %}">
+                    <button type="button" class="btn btn-primary">Agregar</button>
+                </a>
+                <div id="idMensajes">
+                    {% if mensaje %}
+                    {{mensaje}}
+                    {% endif%}
+                </div>
+
+                <table class="table table-dark table-striped">
+                    {% if usuario %}
+                    <thead>
+                        <th>Rut</th>
+                        <th>Nombre Completo</th>
+                        <th>Correo</th>
+                        <th>Modificar</th>
+                        <th>Eliminar</th>
+                    </thead>
+                    <tbody>
+                        {% for user in usuario %}
+                        <tr>
+                            <td>{{user.rut}}</td>
+                            <td>{{user.nombre}} {{user.appPaterno}} {{user.appMaterno}}</td>
+                            <td>{{user.correo}}</td>
+                            <td><a href="{% url 'userEdit' pk=user.rut%}">Modificar</a></td>
+                            <td><a href="{% url 'userDel' pk=user.rut%}">Eliminar</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
