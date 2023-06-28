@@ -1,71 +1,63 @@
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-# Create your models here.
-
 
 class tipoUsuario(models.Model):
-    idTipoUsuario = models.AutoField(
-        primary_key=True, db_column='idTipo', verbose_name='ID_tipo_Usuario')
+    idTipoUsuario = models.AutoField(primary_key=True, db_column='idTipo', verbose_name='ID_tipo_Usuario', default=0)
     tipoUsuario = models.CharField(max_length=20, blank=False, null=False)
 
     def __str__(self):
         return str(self.tipoUsuario)
 
 
+
 class UsuarioManager(BaseUserManager):
-    def create_user(self, rut, nombre, appPaterno, appMaterno, fechaNacimiento, tipoUsuario, correo, telefono, password=None):
-        # Create a new user object
-        user = self.model(
-            rut=rut,
-            nombre=nombre,
-            appPaterno=appPaterno,
-            appMaterno=appMaterno,
-            fechaNacimiento=fechaNacimiento,
-            tipoUsuario=tipoUsuario,
-            correo=correo,
-            telefono=telefono,
-            activo=1,
-        )
-
-        # Set the user's password
-        user.set_password(password)
+    def create_user(self, rut, password=None, **extra_fields):
+        if not rut:
+            raise ValueError("The 'rut' field must be set")
         
-        # Save the user object
+        user = self.model(rut=rut, **extra_fields)
+        user.set_password(password)
         user.save(using=self._db)
         return user
 
-    # Define a method for creating superusers (if needed)
-    def create_superuser(self, rut, nombre, appPaterno, appMaterno, fechaNacimiento, tipoUsuario, correo, telefono, password=None):
-        user = self.create_user(
-            rut=rut,
-            nombre=nombre,
-            appPaterno=appPaterno,
-            appMaterno=appMaterno,
-            fechaNacimiento=fechaNacimiento,
-            tipoUsuario=tipoUsuario,
-            correo=correo,
-            telefono=telefono,
-            password=password,
-        )
-        user.is_admin = True
-        user.save(using=self._db)
-        return user
+    def create_superuser(self, rut, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
 
-class Usuario(AbstractBaseUser):
+        return self.create_user(rut, password, **extra_fields)
+
+    def get_by_natural_key(self, rut):
+        return self.get(rut=rut)
+
+
+class Usuario(AbstractBaseUser, PermissionsMixin):
     rut = models.CharField(max_length=10, primary_key=True)
     nombre = models.CharField(max_length=50, blank=False, null=False)
     appPaterno = models.CharField(max_length=30, blank=False, null=False)
     appMaterno = models.CharField(max_length=30, blank=False, null=False)
-    fechaNacimiento = models.DateField(blank=False, null=False)
-    tipoUsuario = models.ForeignKey('tipoUsuario', on_delete=models.CASCADE, db_column='idTipo')
+    fechaNacimiento = models.DateField(blank=True, null=True)
+    tipoUsuario = models.ForeignKey('tipoUsuario', on_delete=models.CASCADE, db_column='idTipo', null=True)
     correo = models.EmailField(unique=True, blank=False, null=False, max_length=100)
     telefono = models.CharField(max_length=10, blank=False, null=False)
-    activo = models.IntegerField()
+    activo = models.IntegerField(blank=True, null=True)
     direccion = models.CharField(max_length=100, blank=True, null=True)
+    password = models.CharField(max_length=13, blank=False, null=False)
+    is_staff = models.BooleanField(default=False)  # Add is_staff field
+    is_superuser = models.BooleanField(default=False)  # Add is_superuser field
+    
 
+    USERNAME_FIELD = 'rut'
 
-    # Add the custom manager
     objects = UsuarioManager()
 
-    # Set the username field to 'rut'
-    USERNAME_FIELD = 'rut'
+
+    def __str__(self):
+        return self.rut
+
+
+class Subscription(models.Model):
+    email = models.EmailField(unique=True)
+    subscribed_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email

@@ -2,47 +2,18 @@
 <!DOCTYPE html>
 <html>
 
-<head> 
-    <title>Maple</title> 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link type='text/css' rel="stylesheet" href='{% static "css/index.css" %}'>
- 
+<head>
+  <title>Maple</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link type='text/css' rel="stylesheet" href="{% static 'css/index.css' %}?v=10">
 </head>
 <body>
+
   <header>
-        
-    <div class="titulo" >
-			<a href="{% url 'index' %}">Maple</a>
-		</div>
-    <!-- lista -->
-    
-    <ul id="navbarNav" class="collapse">
-        <li><a href="{% url 'catalogo' %}">Productos</a></li>
-        <li><a href="{% url 'blog' %}">Blog</a></li>
-        <li><a href="{% url 'contacto' %}">Contacto</a></li>
-        <li><a href="{% url 'login_registro' %}">Ingresar</a></li>
-
-        
-    <!-- buscador -->
-    <form class="form-inline my-2 my-lg-0 mr-3">
-        <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-    </form>
-     <!-- carrito -->
-    <img class="carrito" src='{% static "imgs/carrito.png" %}'alt="" height=47px></div>
-</ul>  
-   
-    <div class="boton">
-        <button  class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"  >
-            <img src='{% static "imgs/iconmenu.png" %}'  width="100%"> 
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        </div>
-   
-
+    {% include 'app/navbar.html' %}
 </header>
-    <br>
 
+    <br>
     <div id="contenedor">
       <div id="caja1">
           <h1 id="temperatura-valor"></h1>
@@ -59,10 +30,6 @@
   </div>
   
     <!-- Carrusel -->
-
-
-    <br>
-    <br>
     <br>
     <br>
     <div class="contenedor2">
@@ -132,6 +99,9 @@
       </div>
     </div>
     <br>
+    <br>
+    <br>
+    <br>
     <!-- Footer -->
 <footer>
   <p>&copy; 2023 Maple</p>
@@ -143,7 +113,5 @@
 
 <!-- Custom JavaScript -->
 <script src='{% static "js/script.js" %}'></script>
-</body>
-</html>
 </body>
 </html>

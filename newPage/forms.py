@@ -1,6 +1,7 @@
 from .models import Usuario, tipoUsuario
 from django.forms import ModelForm
-
+from django import forms
+from .models import Subscription
 
 class UsuarioForm(ModelForm):
     class Meta:
@@ -17,3 +18,8 @@ class tipoForm(ModelForm):
         labels = {
             "tipoUsuario": "tipoUsuario",
         }
+
+class SubscriptionForm(forms.ModelForm):
+    class Meta:
+        model = Subscription
+        fields = ['email']

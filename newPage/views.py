@@ -1,7 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import get_user_model, logout, authenticate, login as auth_login
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.decorators import login_required
 from django import forms
-from .models import Usuario, tipoUsuario
-# Create your views here.
+from .forms import SubscriptionForm
+from .models import Usuario, tipoUsuario, Subscription
 
 def blog(request):
     usuario = Usuario.objects.all()
@@ -37,6 +41,11 @@ def suscripciones(request):
     usuario = Usuario.objects.all()
     context = {"user": usuario}
     return render(request, "pages/suscripciones.html", context)
+
+def perfil(request):
+    usuario = Usuario.objects.all()
+    context = {"user": usuario}
+    return render(request, "pages/perfil.html", context)
 
 def index(request):
     usuario = Usuario.objects.all()
@@ -83,7 +92,8 @@ def userAdd(request):
             if not form.errors:
                 tipo_cliente, created = tipoUsuario.objects.get_or_create(tipoUsuario="cliente")
 
-                objUsuario = Usuario(
+                # Create the user using create_user method and set the hashed password
+                objUsuario = Usuario.objects.create_user(
                     rut=rut,
                     nombre=nombre,
                     appPaterno=appPaterno,
@@ -93,9 +103,9 @@ def userAdd(request):
                     correo=correo,
                     telefono=telefono,
                     activo=1,
-                    password=password,
-                    direccion = direccion,
+                    direccion=direccion,
                 )
+                objUsuario.set_password(password)
                 objUsuario.save()
 
                 context = {"mensaje": "Registrado Correctamente"}
@@ -108,10 +118,6 @@ def userAdd(request):
     tipo = tipoUsuario.objects.all()
     context = {"form": form, "tipo": tipo}
     return render(request, "pages/registro.html", context)
-
-
-
-
 
 
 
@@ -152,6 +158,8 @@ def userUpdate(request):
         tipo = request.POST["tipoUsuario"]
         correo = request.POST["correo"]
         telefono = request.POST["telefono"]
+        password = request.POST["password"]
+        direccion = request.POST["direccion"]
 
         objTipo = tipoUsuario.objects.get(idTipoUsuario=tipo)
 
@@ -164,6 +172,8 @@ def userUpdate(request):
         user.tipoUsuario = objTipo
         user.correo = correo
         user.telefono = telefono
+        user.password = password
+        user.direccion = direccion
         user.activo = 1
         user.save()
 
@@ -175,3 +185,41 @@ def userUpdate(request):
         usuarios = Usuario.objects.all()
         context = {"usuario": usuarios}
         return render(request, "pages/user_list.html", context)
+
+
+
+def login_view(request):
+    if request.method == 'POST':
+        rut = request.POST['rut']
+        password = request.POST['password']
+        print("rut: ",rut," contraseña: ",password)
+        user = authenticate(request, username=rut, password=password)  
+        print(user)
+        if user is not None:
+            auth_login(request, user)
+            messages.success(request, ('Login successful!'))
+            return render(request, 'pages/index.html')
+        else:
+            error_message = "Invalid username or password."
+            return render(request, 'pages/login_registro.html', {'error_message': error_message})
+    else:
+        return render(request, 'pages/login_registro.html')
+
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, ('logout successful!'))
+    return redirect('index')
+
+
+def subscribe(request):
+    if request.method == 'POST':
+        form = SubscriptionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index') 
+    else:
+        form = SubscriptionForm()
+
+    return render(request, 'subscribe.html', {'form': form})
+

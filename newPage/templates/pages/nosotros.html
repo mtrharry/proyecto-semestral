@@ -11,26 +11,9 @@
 
 </head>
 <body>
-  <!-- Header -->
-  <div class="titulo" >
-    <a href="{% url 'index' %}">Maple</a>
-  </div>
-  <ul id="navbarNav" class="collapse">
-        <li><a href="{% url 'catalogo' %}">Productos</a></li>
-        <li><a href="{% url 'blog' %}">Blog</a></li>
-        <li><a href="{% url 'contacto' %}">Contacto</a></li>
-        <li><a href="{% url 'login_registro' %}">Ingresar</a></li>
-      <div class="search-bar">
-        <input class="form-control mr-sm-2" type="text" placeholder="Buscar">
-        <button class="btn btn-success" type="submit">Buscar</button>
-        <a href="">
-          <img class="imgca" src='{% static "imgs/carrito.png" %}' alt="carrito" height="50px" >
-        </a>
-        
-      </div>
-    </nav>  
-</header>  
-  </header>
+  <header>
+    {% include 'app/navbar.html' %}
+</header>
 
   <!-- Content -->
   <div class="container">
