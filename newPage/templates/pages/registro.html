@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Registration Form</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript%}
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet" 
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link type='text/css' rel="stylesheet" href='{% static "css/registro.css" %}'>
+  </head>
+  <body>
+    <header>
+        {% include 'app/navbar.html' %}
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto p-5 text-center">
+                <h1>Agregar Usuario</h1>
+                <form action="{% url 'userAdd' %}" method="POST">
+                    {% csrf_token %}
+    
+                    <!-- Display success message -->
+                    {% if mensaje %}
+                        <div class="alert alert-success" role="alert">
+                            {{ mensaje }}
+                        </div>
+                    {% endif %}
+    
+                    <!-- Display form errors -->
+                    {% if form.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            <ul class="mb-0">
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <li>{{ field.label }}: {{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+    
+                    <div>
+                        <label for="rut" class="form-label">Rut</label>
+                        <input type="text" name="rut" id="rut" class="form-control">
+                    </div>
+                    <div>
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" name="nombre" id="nombre" class="form-control">
+                    </div>
+                    <div>
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" name="password" id="password" class="form-control">
+                    </div>
+                    <div>
+                        <label for="appPaterno" class="form-label">Apellido Paterno</label>
+                        <input type="text" name="appPaterno" id="appPaterno" class="form-control">
+                    </div>
+                    <div>
+                        <label for="appMaterno" class="form-label">Apellido Materno</label>
+                        <input type="text" name="appMaterno" id="appMaterno" class="form-control">
+                    </div>
+                    <div>
+                        <label for="fecha" class="form-label">Fecha de Nacimiento</label>
+                        <input type="date" name="fecha" id="fecha" class="form-control" required>
+                    </div>
+                    <div>
+                        <label for="telefono" class="form-label">Telefono</label>
+                        <input type="text" name="telefono" id="telefono" class="form-control">
+                    </div>
+                    <div>
+                        <label for="correo" class="form-label">Correo</label>
+                        <input type="email" name="correo" id="correo" class="form-control">
+                    </div>
+                    <div>
+                        <label for="direccion" class="form-label">Direccion</label>
+                        <input type="text" name="direccion" id="direccion" class="form-control">
+                    </div>
+                    <br>
+                <input type="submit" name="opcion" value="Agregar" class="btn btn-success">
+            </form>
+            <br>
+            <br>
+        </div>
+    </div>
+</div>
+    
+    
+
+
+    <footer>
+      <p>&copy; 2023 Maple</p>
+    </footer>
+
+    <!-- Bootstrap JS and jQuery -->
+
+  <script src='{% static "js/registrov.js" %}'></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNS"
+      crossorigin="anonymous"
+      ></script>
+      <script
+         src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+         crossorigin="anonymous"
+       ></script>
+  </body>

@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maple</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link type='text/css' rel="stylesheet" href="{% static 'css/login_registro.css' %}?v=10">
+</head>
+<body>
+    <header>
+        {% include 'app/navbar.html' %}
+    </header>
+    {% if request.user.is_authenticated %}
+    <h1>ya estas logueado</h1>
+    {% else %}
+    <form id="login-form" method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <label for="rut">rut</label>
+        <input type="text" id="rut" name="rut" required><br>
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" name="password" required>
+        <p id="error-message" style="color: red;"></p>
+        <a href="{% url 'registro' %}" style="color: rgb(0, 0, 0); text-decoration: none; background-color: lightblue; border-radius: 5px; padding: 10px 30px;">Registrarse</a>
+        <br>
+        <input type="submit" style="color: rgb(0, 0, 0); text-decoration: none; background-color: lightblue; border-radius: 5px; padding: 10px 20px;" value="Iniciar sesión">
+    </form>
+    {% endif %}
+    <footer>
+        <p>&copy; 2023 Maple</p>
+    </footer>
+
+    <!-- Bootstrap and jQuery JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
