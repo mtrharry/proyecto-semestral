@@ -30,7 +30,11 @@
               {% endfor %}
             </select>
             <br>
+            {% if request.user.is_authenticated or user.is_superuser %}
             <button type="submit" class="btn btn-primary">Suscribir</button>
+            {% else %}
+            <p>loguease primero</p>
+            {% endif %}
           </form>
         </div>
         <div class="col-md-6">
