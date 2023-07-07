@@ -273,7 +273,6 @@ def crud(request):
     return render(request, "pages/user_list.html", context)
 
 
-
 def my_view(request):
     subscriptions = Subscription.objects.filter(user=request.user)
     context = {'subscriptions': subscriptions}
