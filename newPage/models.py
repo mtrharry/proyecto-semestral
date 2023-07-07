@@ -57,10 +57,22 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         return self.rut
 
 
+class Plan(models.Model):
+    name = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+
+    def __str__(self):
+        return self.name
+
+
 class Subscription(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
     start_date = models.DateField(auto_now_add=True)
     end_date = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.plan.name}"
 
 
 class Producto(models.Model):

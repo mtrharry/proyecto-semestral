@@ -1,12 +1,12 @@
-from django.shortcuts import render, redirect
+from django.utils import timezone
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import get_user_model, logout, authenticate, login as auth_login
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django import forms
-from .forms import SubscriptionForm
-from .models import Usuario, tipoUsuario, Subscription, Producto
+from .models import Usuario, tipoUsuario, Subscription, Producto, Plan
 from .Carrito import Carrito
 
 def blog(request):
@@ -41,8 +41,8 @@ def registro(request):
     return render(request, "pages/registro.html", context)
 
 def suscripciones(request):
-    usuario = Usuario.objects.all()
-    context = {"user": usuario}
+    user_subscription = Subscription.objects.get(user=request.user)
+    context = {"subscription": user_subscription}
     return render(request, "pages/suscripciones.html", context)
 
 def perfil(request):
@@ -54,11 +54,6 @@ def index(request):
     usuario = Usuario.objects.all()
     context = {"user": usuario}
     return render(request, "pages/index.html", context)
-
-def crud(request):
-    usuario = Usuario.objects.all()
-    context = {"usuario": usuario}
-    return render(request, "pages/user_list.html", context)
 
 
 class UserAddForm(forms.Form):
@@ -216,15 +211,68 @@ def logout_view(request):
     return redirect('index')
 
 
+def unsubscribe(request):
+    subscription = Subscription.objects.get(user=request.user)
+    subscription.delete()
+    return redirect('suscripciones')
+
 
 def subscribe(request):
-    if request.method == 'POST':
-        form = SubscriptionForm(request.POST)
-        if form.is_valid():
-            return redirect('index')
-    else:
-        form = SubscriptionForm()
-    return render(request, 'pages/suscripciones.html', {'form': form})
+    user = request.user
+
+    try:
+        subscription = Subscription.objects.get(user=user)
+        if request.method == 'POST':
+            plan_id = request.POST.get('plan')
+            plan = get_object_or_404(Plan, pk=plan_id)
+            subscription.plan = plan
+            subscription.start_date = timezone.now().date()
+            subscription.end_date = subscription.start_date + timezone.timedelta(days=30) 
+            subscription.save()
+
+            return redirect('suscripciones') 
+
+        plans = Plan.objects.all()
+        context = {'subscription': subscription, 'plans': plans}
+        return render(request, 'pages/suscripciones.html', context)
+
+    except Subscription.DoesNotExist:
+        if request.method == 'POST':
+            plan_id = request.POST.get('plan')
+            plan = get_object_or_404(Plan, pk=plan_id)
+            start_date = timezone.now().date()
+            end_date = start_date + timezone.timedelta(days=30)  
+
+            subscription = Subscription(user=user, plan=plan, start_date=start_date, end_date=end_date)
+            subscription.save()
+
+            return redirect('suscripciones') 
+
+        plans = Plan.objects.all()
+        return render(request, 'pages/suscripciones.html', {'plans': plans})
+
+
+def crud(request):
+    usuario = Usuario.objects.all()
+    plans = Plan.objects.all()
+
+    if request.method == 'POST' and 'delete_plan' in request.POST:
+        plan_id = request.POST.get('delete_plan')
+        plan = Plan.objects.get(pk=plan_id)
+        plan.delete()
+        return redirect('crud')
+
+    elif request.method == 'POST':
+        name = request.POST.get('name')
+        price = request.POST.get('price')
+        plan = Plan(name=name, price=price)
+        plan.save()
+        return redirect('crud')
+
+    context = {"usuario": usuario, "plans": plans}
+    return render(request, "pages/user_list.html", context)
+
+
 
 def my_view(request):
     subscriptions = Subscription.objects.filter(user=request.user)
@@ -238,17 +286,20 @@ def agregar_producto(request, producto_id):
     carrito.agregar(producto)
     return redirect("catalogo")
 
+
 def eliminar_producto(request, producto_id):
     carrito = Carrito(request)
     producto = Producto.objects.get(id=producto_id)
     carrito.eliminar(producto)
     return redirect("catalogo")
 
+
 def restar_producto(request, producto_id):
     carrito = Carrito(request)
     producto = Producto.objects.get(id=producto_id)
     carrito.restar(producto)
     return redirect("catalogo")
+
 
 def limpiar_carrito(request):
     carrito = Carrito(request)

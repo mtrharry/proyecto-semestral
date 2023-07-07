@@ -13,6 +13,7 @@
     {% include 'app/navbar.html' %}
 </header>
 
+
   <!-- Main Content -->
   <section class="py-5">
     <div class="container">
@@ -22,28 +23,36 @@
           <h2>Suscribete ahora</h2>
           <form method="POST" action="{% url 'suscripciones' %}">
             {% csrf_token %}
-            <div class="form-group">
-              <label for="email">Correo Electronico</label>
-              <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
-                placeholder="Ingrese correo">
-              <small id="emailHelp" class="form-text text-muted">nunca compartiremos tu correo con nadie.</small>
-            </div>
-            <div class="form-group">
-              <label for="plan">selecciona tu plan</label>
-              <select class="form-control" id="plan" name="plan">
-                <option>Mensual - $10.000/Mes</option>
-                <option>Anual - $89.990/Año</option>
-              </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Subscribe</button>
+            <select id="plan" name="plan">
+              <option value="" disabled selected>Selecciona un Plan</option>
+              {% for plan in plans %}
+                <option value="{{ plan.id }}" label="{{ plan.name }} - ${{ plan.price }}">{{ plan.name }} - ${{ plan.price }}</option>
+              {% endfor %}
+            </select>
+            <br>
+            <button type="submit" class="btn btn-primary">Suscribir</button>
           </form>
         </div>
         <div class="col-md-6">
           <h2>Tu plan Actual</h2>
-          <p>Tu no estas suscrito a ningun plan. Suscribete ahora para conseguir acceso a todas las caracteristicas premiun.</p>
+          {% if subscription %}
+            <p>Plan: {{ subscription.plan }}</p>
+            <p>Start Date: {{ subscription.start_date }}</p>
+            <p>End Date: {{ subscription.end_date }}</p>
+          {% else %}
+            <p>No se encontro suscripcion asosiada a la cuenta.</p>
+          {% endif %}
+          {% if subscription %}
           <h2>Cancelar Suscripcion</h2>
           <p>Si quieres cancelar, Porfavor presiona el boton abajo:</p>
-          <button class="btn btn-danger">Cancelar suscripcion</button>
+          <form method="post" action="{% url 'unsubscribe' %}">
+            {% csrf_token %}
+            <button class="btn btn-danger" type="submit">Cancelar suscripcion</button>
+          </form>  
+          {% else %}
+            <p>.</p>
+          {% endif %}
+            
         </div>
       </div>
     </div>
